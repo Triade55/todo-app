@@ -79,7 +79,22 @@ model User {
   username String
   bio String ?
   link String?
+  task Task[]
 }
+model Task {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  do        Boolean
+  parentId  String?  // Optionnel, pour les tâches imbriquées
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  parent    Task?    @relation("TaskParent", fields: [parentId], references: [id])
+  children  Task[]    @relation("TaskParent")
+}
+
 
 
 

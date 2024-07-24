@@ -1,12 +1,14 @@
+"use server"
+import { getAuthSession } from '@/lib/auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
-export default function AuthButton() {
-  const { data: session } = useSession();
+export default async function  AuthButton() {
+  const session = await getAuthSession();
 
   if (session) {
     return (
       <>
-        <p>Connecté en tant que {session.user.email}</p>
+        <p>Connecté en tant que {session?.user?.email}</p>
         <button onClick={() => signOut()}>Se déconnecter</button>
       </>
     );

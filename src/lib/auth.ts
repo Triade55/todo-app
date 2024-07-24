@@ -16,7 +16,6 @@ export const authOptions: AuthOptions = {
         name:profile.name,
         email : profile.email,
         username:profile.login,
-        image : profile.avatar_url
         }
       }
     }),
@@ -27,7 +26,7 @@ export const authOptions: AuthOptions = {
       if (!session?.user) {
         return session
       }
-    //   session.user.id = user.id;
+    session.user.id = user.id;
       return session;
     },
   },
