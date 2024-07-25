@@ -3,8 +3,11 @@
 import { putTaskToDoIt, TaskHome } from "@/query/task.query";
 import clsx from "clsx";
 import React, { useState } from "react";
-
-export default function TaskContainer({ name, doIt, id }:TaskHome) {
+interface Props extends TaskHome {
+  tasks : TaskHome[]
+  setTasks:any
+}
+export default function TaskContainer({ name, doIt, id}:Props) {
   const [valueDoIt, setValueDoIt] = useState(doIt);
 
   async function handlerChange() {

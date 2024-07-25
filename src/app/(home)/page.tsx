@@ -10,24 +10,16 @@ import { Trie } from "@/feature/task/Trie";
 export default async function Home() {
   const session = await getAuthSession();
   const tasks = await getLatestTasks();
+  
 
   return (
-    <div >
+    < >
+     
+      <div className="">
+        
+        <Task tasks={tasks}  />
       
-      <div className="">
-        <Trie/>
       </div>
-
-      {/* <AuthButton />
-      <ButtonAuth isCo={session ? true : false} />
-      {session && <p>Bienvenue, {session?.user?.name}</p>} */}
-      {/* Vos autres composants */}
-      <div className="">
-
-      {tasks.map((task)=>(
-        <Task task={task} key={task.id}  />
-      ))}
-      </div>
-    </div>
+    </>
   );
 }
