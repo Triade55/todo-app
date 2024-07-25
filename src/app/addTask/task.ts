@@ -9,7 +9,7 @@ export async function createTask(name: string) {
       data: {
         name,
         userId,
-        do: false,
+        doIt: false,
       },
     });
     console.log(task);
