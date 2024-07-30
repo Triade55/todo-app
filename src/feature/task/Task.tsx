@@ -3,7 +3,7 @@ import { TaskHome } from "@/query/task.query";
 import React, { useEffect, useState } from "react";
 import TaskContainer from "./task-container";
 import { Trie } from "./Trie";
-import { Input } from "@/components/ui/input";
+import useTasks from "@/hooks/useTask";
 
 interface Props {
   tasks: TaskHome[];
@@ -14,16 +14,15 @@ export const Task = ({ tasks }: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [dateFilter, setDateFilter] = useState(''); // 'today', 'thisWeek', 'thisMonth'
 
-  const [tasksShow, setTasksShow] = useState(tasks);
-  const [tasksShowFiltered, setTasksShowFiltered] = useState(tasks);
-
+  const [tasksShowFiltered, setTasksShowFiltered] = useState<TaskHome[]>([]);
+  const [idUpdate, setIdUpdate] = useState('');
+  const [datatasks,setDataTasks] = useState<TaskHome[]>(tasks);
   useEffect(() => {
-    let filteredTasks = tasks;
-
+    let filteredTasks = datatasks;
     if (checked === 'Déjà fait uniquement') {
-      filteredTasks = filteredTasks.filter((task) => task.doIt);
+      filteredTasks = filteredTasks.filter((task) => task.doIt === true);
     } else if (checked === 'Non fait uniquement') {
-      filteredTasks = filteredTasks.filter((task) => !task.doIt);
+      filteredTasks = filteredTasks.filter((task) => task.doIt === false);
     }
 
     if (searchTerm) {
@@ -51,7 +50,7 @@ export const Task = ({ tasks }: Props) => {
     }
 
     setTasksShowFiltered(filteredTasks);
-  }, [checked, searchTerm, dateFilter, tasks]);
+  }, [checked, searchTerm, dateFilter,datatasks]);
 
   return (
     <div>
@@ -78,13 +77,13 @@ export const Task = ({ tasks }: Props) => {
       </div>
       {tasksShowFiltered.map((task) => (
         <TaskContainer
+          key={task.id}
           name={task.name}
           doIt={task.doIt}
           id={task.id}
           createdAt={task.createdAt}
-          tasks={tasksShow}
-          setTasks={setTasksShow}
-          key={task.id}
+          setDataTasks={setDataTasks}
+          DataTasks={datatasks}
         />
       ))}
     </div>

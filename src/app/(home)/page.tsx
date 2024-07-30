@@ -7,11 +7,10 @@ import { ModeToggle } from "@/components/ButtonTheme";
 import { getLatestTasks, putTaskToDoIt } from "@/query/task.query";
 import {Task} from "@/feature/task/Task";
 import { Trie } from "@/feature/task/Trie";
+import useTask from "@/hooks/useTask";
 export default async function Home() {
   const session = await getAuthSession();
   const tasks = await getLatestTasks();
-  
-
   return (
     < >
      
